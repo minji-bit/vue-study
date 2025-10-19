@@ -1,11 +1,12 @@
 <template>
-  <button @click="pop('Hello')">Hello</button>
+ <FrontWheel/>
+  <RearWheel/>
 </template>
 
 <script setup>
-const pop = (message)=>{
-  window.alert(message);
-}
+
+import FrontWheel from "@/components/FrontWheel.vue";
+import RearWheel from "@/components/RearWheel.vue";
 </script>
 
 <style lang="scss" scoped>
