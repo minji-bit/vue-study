@@ -6,7 +6,7 @@
           <div class="d-flex justify-content-between">
             <b>{{m.title}}</b>
             <div>
-              <span role="button">삭제</span>
+              <span role="button" @click.prevent="remove(m.id)">삭제</span>
             </div>
           </div>
           <div class="mt-2">{{m.content}}</div>
@@ -21,7 +21,7 @@
 <script setup>
 
 import {StorageService} from "@/services/StorageService.js";
-import {reactive} from "vue";
+import {onMounted, reactive} from "vue";
 
 const storageService = new StorageService("myMemo");
 
@@ -29,9 +29,22 @@ const state = reactive({
   memos:[],
 })
 
-(async function onCreated(){
+/*(async function onCreated(){
   state.memos = storageService.getItems();
-})();
+  })();*/
+onMounted(() => {
+  state.memos = storageService.getItems();
+});
+
+const remove = (id)=>{
+  if(!window.confirm('삭제하시겠습니까?')){
+    return;
+  }
+
+  storageService.delItem(id);
+
+  state.memos = storageService.getItems();
+}
 </script>
 
 <style lang="scss" scoped>
