@@ -31,6 +31,14 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api
+    implementation("io.jsonwebtoken:jjwt-api:0.13.0")
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl
+    implementation("io.jsonwebtoken:jjwt-impl:0.13.0")
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
+    implementation("io.jsonwebtoken:jjwt-jackson:0.13.0")
+
+
 }
 
 tasks.named('test') {
