@@ -22,6 +22,7 @@
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { login } from '@/services/accountService';
+import { useAccountStore } from '@/stores/account';
 
 
 //반응형 상태
@@ -33,12 +34,17 @@ const state = reactive({
 });
 //라우터 객체
 const router = useRouter();
+
+//계정 스토어
+const accountStore = useAccountStore();
+
 //로그인 데이터 제출
 const submit = async ()=>{
     const res = await login(state.form);
     
     switch(res.status){
         case 200 : 
+            accountStore.setAccessToken(res.data);
             await router.push("/");
             break;
         
