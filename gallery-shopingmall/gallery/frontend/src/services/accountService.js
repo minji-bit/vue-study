@@ -16,5 +16,5 @@ export const check = ()=>{
 
 //로그아웃
 export const logout = ()=>{
-    return httpRequester.get("/v1/api/account/logout").catch(e=>e.response);
+    return httpRequester.post("/v1/api/account/logout").catch(e=>e.response);
 }

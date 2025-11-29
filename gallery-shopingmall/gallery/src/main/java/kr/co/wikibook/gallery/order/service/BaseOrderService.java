@@ -1,6 +1,8 @@
 package kr.co.wikibook.gallery.order.service;
 
+import jakarta.transaction.Transactional;
 import kr.co.wikibook.gallery.cart.service.CartService;
+import kr.co.wikibook.gallery.common.util.EncryptionUtils;
 import kr.co.wikibook.gallery.item.dto.ItemRead;
 import kr.co.wikibook.gallery.item.service.ItemService;
 import kr.co.wikibook.gallery.order.dto.OrderRead;
@@ -53,6 +55,7 @@ public class BaseOrderService implements OrderService {
     }
     //주문 내용 저장
     @Override
+    @Transactional
     public void order(OrderRequest orderRequest, Integer memberId) {
         //주문 상품의 최종 결제 금액을 계산
         List<ItemRead> items = itemService.findAll(orderRequest.getItemIds());
@@ -63,6 +66,11 @@ public class BaseOrderService implements OrderService {
         }
         //주문 요청에 최종 결제 금액 입력
         orderRequest.setAmount(amount);
+        //결제 수단이 카드일 때 카드 번호 암호화
+        if("card".equals(orderRequest.getPayment())){
+            System.out.println(orderRequest.getCardNumber());
+            orderRequest.setCardNumber(EncryptionUtils.encrypt(orderRequest.getCardNumber()));
+        }
         //주문 저장
         Order order = orderRepository.save(orderRequest.toEntity(memberId));
         //주문 상품 데이터 생성
