@@ -46,4 +46,10 @@ public class BaseMemberService implements MemberService {
         }
         return null;
     }
+
+    @Override
+    public Member find(String loginId) {
+        //회원 데이터가 있으면 해당 값 리턴
+        return memberRepository.findByLoginId(loginId).orElse(null);
+    }
 }

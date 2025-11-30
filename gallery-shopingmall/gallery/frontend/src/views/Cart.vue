@@ -22,9 +22,12 @@
 </template>
 
 <script setup>
+
 import { getItems, removeItem } from '@/services/cartService';
 
+
 import { reactive } from 'vue';
+
 
 //반응형 상태
 const state = reactive({
