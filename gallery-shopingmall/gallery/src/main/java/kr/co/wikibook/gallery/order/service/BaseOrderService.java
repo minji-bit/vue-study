@@ -12,6 +12,8 @@ import kr.co.wikibook.gallery.order.entity.OrderItem;
 import kr.co.wikibook.gallery.order.repository.OrderItemRepository;
 import kr.co.wikibook.gallery.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,8 +31,9 @@ public class BaseOrderService implements OrderService {
     private final OrderItemService orderItemService;
 
     @Override
-    public List<OrderRead> findAll(Integer memberId) {
-        return orderRepository.findAllByMemberIdOrderByIdDesc(memberId).stream().map(Order::toRead).toList();
+    public Page<OrderRead> findAll(Integer memberId, Pageable pageable) {
+        Page<Order> orders = orderRepository.findAllByMemberIdOrderByIdDesc(memberId, pageable);
+        return orders.map(Order::toRead);
     }
 
     @Override
