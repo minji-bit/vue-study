@@ -26,7 +26,7 @@
                             </tr>
                             <tr>
                                 <th>결제 수단</th>
-                                <td>{{ state.order.payment === card? '카드' : '현금'}}</td>
+                                <td>{{ state.order.payment === 'card'? '카드' : '현금'}}</td>
                             </tr>
                             <tr>
                                 <th>결제 일시</th>
@@ -87,6 +87,7 @@ const state = reactive({
     const id = route.params.id;
     const res = await getOrder(id);
     if(res.status === 200){
+        console.log(res);
         state.order = res.data;
     }
 })();

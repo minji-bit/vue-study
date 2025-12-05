@@ -23,13 +23,14 @@ public class OrderController {
 
     @GetMapping("/api/orders")
     public ResponseEntity<?> readAll(HttpServletRequest request, Pageable pageable) {
-        //로그인 회원 아이디
+        //로그인 회원                                                                                                   아이디
         Integer memberId = accountHelper.getMemberId(request);
         //주문 목록
         Page<OrderRead> orders = orderService.findAll(memberId,pageable);
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
+
 
     @GetMapping("/api/orders/{id}")
     public ResponseEntity<?> read(HttpServletRequest request, @PathVariable Integer id) {
